@@ -1,0 +1,28 @@
+.featured {
+  background: var(--ivory);
+}
+
+.featured__head {
+  text-align: center;
+}
+
+.featured__sub {
+  margin-inline: auto;
+  max-width: 52ch;
+}
+
+.featured .section-head {
+  gap: 16px;
+}
+
+.featured__foot {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(30px, 4vw, 46px);
+}
+
+@media (max-width: 900px) {
+  .featured__foot {
+    justify-content: flex-start;
+  }
+}

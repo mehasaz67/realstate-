@@ -1,0 +1,15 @@
+.notfound__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 620px;
+  padding-block: clamp(40px, 8vw, 90px);
+}
+
+.notfound__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px;
+  margin-top: 12px;
+}

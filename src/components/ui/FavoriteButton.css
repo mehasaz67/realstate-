@@ -1,0 +1,59 @@
+.fav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  background: rgba(10, 28, 49, 0.32);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  transition:
+    background-color 0.3s var(--ease),
+    color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    transform 0.3s var(--ease);
+}
+
+.fav--lg {
+  width: 48px;
+  height: 48px;
+}
+
+.fav:hover {
+  background: #ffffff;
+  color: var(--navy);
+  transform: scale(1.04);
+}
+
+.fav.is-active {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.fav.is-active:hover {
+  background: var(--gold-soft);
+  color: var(--navy);
+}
+
+.fav--plain {
+  border-color: var(--line-strong);
+  background: #ffffff;
+  color: var(--navy);
+  backdrop-filter: none;
+}
+
+.fav--plain:hover {
+  border-color: var(--navy);
+  background: var(--navy);
+  color: #ffffff;
+}
+
+.fav--plain.is-active {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--navy);
+}

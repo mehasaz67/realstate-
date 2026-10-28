@@ -1,0 +1,130 @@
+.team {
+  background: var(--paper);
+}
+
+.team__head .section-head {
+  gap: 16px;
+}
+
+.team__sub {
+  margin-inline: auto;
+  max-width: 54ch;
+}
+
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(20px, 2.4vw, 32px);
+  margin-top: clamp(36px, 5vw, 60px);
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.member__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-lg);
+  background: var(--ivory-deep);
+}
+
+.member__media img {
+  filter: saturate(0.94);
+  transition: transform 0.9s var(--ease-out), filter 0.6s var(--ease);
+}
+
+.member:hover .member__media img {
+  transform: scale(1.045);
+  filter: saturate(1);
+}
+
+.member__links {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.member:hover .member__links,
+.member:focus-within .member__links {
+  opacity: 1;
+  transform: none;
+}
+
+.member__links a {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--navy);
+  backdrop-filter: blur(6px);
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.member__links a:hover {
+  background: var(--navy);
+  color: #ffffff;
+}
+
+.member__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.member__name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.member__role {
+  color: var(--muted);
+  font-size: 0.83rem;
+}
+
+.team__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: clamp(34px, 4vw, 48px);
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+@media (hover: none) {
+  .member__links {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 920px) {
+  .team__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .team__grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .member__media {
+    aspect-ratio: 5 / 4;
+  }
+}

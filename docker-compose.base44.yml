@@ -1,0 +1,46 @@
+# Base44 dev environment for Horizon Properties.
+#
+# The site is a Vite + React app served by the Vite dev server straight from the
+# cloned source, so every edit is reflected without a rebuild. Dependencies are
+# installed on container start from the mounted lockfile into a named volume, so
+# the sandbox host stays clean and installs survive restarts.
+#
+#   docker compose -f docker-compose.base44.yml up -d --build
+#
+# Web entry point: http://localhost:3000
+#
+# No external services or credentials are required: property content lives in
+# src/data, and saved properties are stored in the browser.
+services:
+  web:
+    image: node:22-alpine
+    working_dir: /app
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    environment:
+      # Sandbox flag — a bare passthrough so the value is never hardcoded here.
+      - BASE44_PREVIEW_MODE
+      # Supplied by the platform; Vite >= 6.1 appends it to server.allowedHosts.
+      - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    command:
+      - sh
+      - -ec
+      - npm install --no-audit --no-fund && exec npm run dev -- --host 0.0.0.0 --port 3000
+    labels:
+      base44.project: "Horizon Properties"
+      base44.kind: "web"
+      base44.port: "3000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:3000/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 90s
+
+volumes:
+  node_modules:

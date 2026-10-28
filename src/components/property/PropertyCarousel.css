@@ -1,0 +1,109 @@
+.carousel {
+  position: relative;
+  margin-top: clamp(32px, 4vw, 52px);
+}
+
+.carousel__track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+  padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+  padding-block: 4px 10px;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel__track:active {
+  cursor: grabbing;
+}
+
+.carousel__track:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+
+.carousel__track > .pcard {
+  flex: 0 0 clamp(255px, 26vw, 330px);
+  scroll-snap-align: start;
+}
+
+.carousel__track > .pcard--lead {
+  flex-basis: clamp(275px, 29vw, 372px);
+}
+
+/* Draggable rail: keep text selection out of the way. */
+.carousel__track .pcard__name,
+.carousel__track .pcard__loc,
+.carousel__track .pcard__meta,
+.carousel__track .pcard__foot {
+  user-select: none;
+}
+
+.carousel__nav {
+  position: absolute;
+  top: 38%;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--navy);
+  box-shadow: 0 18px 40px -28px rgba(10, 28, 49, 0.8);
+  backdrop-filter: blur(6px);
+  transform: translateY(-50%);
+  transition:
+    background-color 0.35s var(--ease),
+    color 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    opacity 0.3s var(--ease);
+}
+
+.carousel__nav--prev {
+  left: clamp(6px, 1.4vw, 22px);
+}
+
+.carousel__nav--next {
+  right: clamp(6px, 1.4vw, 22px);
+}
+
+.carousel__nav:hover:not(:disabled) {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+}
+
+.carousel__nav:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+@media (max-width: 900px) {
+  .carousel__track {
+    gap: 18px;
+  }
+
+  .carousel__track > .pcard {
+    flex-basis: min(78vw, 320px);
+  }
+
+  .carousel__track > .pcard--lead {
+    flex-basis: min(78vw, 320px);
+  }
+
+  .carousel__nav {
+    display: none;
+  }
+}
