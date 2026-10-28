@@ -30,6 +30,28 @@ docker compose -f docker-compose.base44.yml up -d --build
 - `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS` is passed through from the platform so
   Vite accepts the preview proxy's hostname. Do not hardcode sandbox hosts.
 
+## Environment variables
+
+The stack needs **no application variables and no credentials** — there is no
+backend, no database and no third-party API key. Everything the containers read
+is supplied by the platform (`docker-compose.base44.yml` passes it through):
+
+| Variable | Source | Required? | Used for |
+| --- | --- | --- | --- |
+| `BASE44_PREVIEW_MODE` | platform | no | `1` inside the Base44 sandbox; never hardcode it. |
+| `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS` | platform | no | Vite `server.allowedHosts`, so the preview proxy's hostname is accepted. |
+| `CHOKIDAR_USEPOLLING` | compose | yes (set inline) | HMR over the bind mount. |
+
+- Nothing is read from `src/` at runtime (`import.meta.env` is unused), so a
+  missing variable can never break the page.
+- If a future feature needs a credential (email/API/payment), do **not** add it
+  to compose `environment:` or a committed `.env` — the platform delivers
+  user secrets to `/run/base44/app.env`, which belongs last in each service's
+  `env_file:` list. Local infra passwords you generate yourself stay inline in
+  compose `environment:`.
+- `.base44/environment.json` records the setup (`previewPort` 3000, `healthPath`
+  `/`, empty `secrets`). Keep it in sync if that changes.
+
 ## Gotchas learned here
 
 - `src/sections/*` are homepage sections; their relative imports are
